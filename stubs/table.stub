@@ -1,0 +1,47 @@
+@extends('layouts.app')
+@section('content')
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+            <div class="pagetitle">
+                <h1>
+                      {{ modelC }}s list
+                </h1>
+            </div>
+            <a href="{{ route('{{ modelP }}.create') }}" class="btn btn-success">
+                + New {{ model }}
+            </a>
+        </div>
+    <div class="card mt-4">
+        <div class="card-body mt-3">
+            <table id='data' class="table table-hover">
+                <thead>
+                    <tr>
+                        {{ head }}
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(${{ modelP }} as ${{ model }})
+                            <tr>
+                                {{ body }}
+                                <td>
+                                     <a href="{{ route('{{ modelP }}.edit', ${{ model }}->id) }}">
+                                         <i class="fa fa-edit"></i>
+                                     </a>
+                                     <form class="d-inline" method="POST" action="{{ route("{{ modelP }}.destroy", ${{ model }}->id) }}">
+                                                    @csrf
+                                                        @method("DELETE")
+                                                    <button style="background: none" class="border-0" >
+                                                        <span><i class="fas fa-trash text-danger"></i></span>
+                                                    </button>
+                                     </form>
+                                                                </td>
+                            </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection
+{{ dt }}

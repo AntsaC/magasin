@@ -1,0 +1,32 @@
+@extends('layouts.app')
+@section('content')
+<div class="container">
+    <div class="pagetitle">
+        <h1>
+            @if(isset(${{ model }}))
+                Edit {{ model }}
+            @else
+                New {{ model }}
+            @endif
+        </h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Articles</a></li>
+                <li class="breadcrumb-item active">New</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="card">
+        <div class="card-body mt-3">
+            <form method="post" enctype="multipart/form-data" action="{{ isset(${{ model }}) ? route('{{ model }}s.update', ${{ model }}->id) : route('{{ model }}s.store') }}">
+                @csrf
+                @if(isset(${{ model }}))
+                    @method('PUT')
+                @endif
+                {{ fields }}
+                <input type="submit" class="btn btn-primary" value="{{ isset(${{ model }}) ? 'Update' : 'Save' }}">
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
